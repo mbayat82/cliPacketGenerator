@@ -4,7 +4,7 @@ try:
     import socket, sys, string
     #Import local
     from netlib import *        #common tools
-    from dhcpAttach import *    #dhcp attack library
+    from dhcpAttack import *    #dhcp attack library
     from arpScan import *       #arp scan library
     #Import 3rd party
     import netaddr, netifaces

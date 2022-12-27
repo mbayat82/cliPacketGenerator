@@ -6,6 +6,7 @@ try:
     import netaddr, netifaces
     import scapy.contrib.igmp as sigmp
     from scapy.all import *
+    from scapy.arch.windows import get_windows_if_list
     from prettytable import PrettyTable
     from sty import fg, bg, ef, rs
     import keyboard
@@ -40,7 +41,10 @@ def getWinInterfaceDialog():
 
         #List all network interfaces
         for interfaceIndex,interfaceInfo in enumerate(allInterfaces):
-            netIfacesTable.add_row([interfaceIndex,interfaceInfo['name'],interfaceInfo['mac'],interfaceInfo['ips'][1]])
+            try:
+                netIfacesTable.add_row([interfaceIndex,interfaceInfo['name'],interfaceInfo['mac'],interfaceInfo['ips'][1]])
+            except:
+                pass
         print(netIfacesTable.get_string(title="Network Interfaces"))
 
         print(fg.li_yellow + "Press e to exist\n" + fg.rs)
@@ -471,3 +475,4 @@ def printPacket(pkt,rsm=False,rdm=False,rsi=False,rdi=False,rsp=False,rdp=False)
         print("  " + ">" + " Multicast IP: " + str(pkt[sigmp.IGMP].gaddr))
         print("  " + ">" + " Type: " + str(pkt[sigmp.IGMP].type) + igmpType)
     print("")
+
